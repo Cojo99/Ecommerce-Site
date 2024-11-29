@@ -1,0 +1,182 @@
+/* Main Colors */
+:root {
+    --primary-color: #ffffff; /* White background */
+    --secondary-color: #008080; /* Teal accent */
+    --hover-color: #005f5f; /* Darker teal for hover */
+    --text-color: #000000; /* Black text */
+    --button-color: #000000; /* Black buttons */
+    --button-hover-color: #333333; /* Slightly lighter black for hover */
+    --outline-color: #000000; /* Black outlines */
+}
+
+/* General Styles */
+body {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.navbar a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: var(--hover-color);
+}
+
+/* Buttons */
+.btn {
+    background-color: var(--button-color);
+    color: var(--primary-color);
+    border: 1px solid var(--outline-color);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+    border: 1px solid var(--outline-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: var(--secondary-color);
+}
+
+.card:hover {
+    border-color: var(--hover-color);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: var(--secondary-color);
+    border: 1px solid var(--outline-color);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* Search Bar */
+.search-bar {
+    border: 2px solid var(--outline-color);
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.search-bar:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.footer a:hover {
+    color: var(--hover-color);
+}
+
+/* Forms */
+form input, form select, form textarea {
+    border: 1px solid var(--outline-color);
+    border-radius: 5px;
+    padding: 8px;
+    width: 100%;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
+
+/* Product Cards */
+.product-card {
+    background-color: var(--primary-color);
+    border: 1px solid var(--outline-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-card .price {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Cart Page */
+.cart-item {
+    border-bottom: 1px solid var(--outline-color);
+    padding: 15px 0;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-total {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Checkout Page */
+.checkout-form input, .checkout-form textarea {
+    border: 1px solid var(--outline-color);
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.checkout-form input:focus, .checkout-form textarea:focus {
+    border-color: var(--secondary-color);
+}
+
+.checkout-button {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: var(--hover-color);
+}
