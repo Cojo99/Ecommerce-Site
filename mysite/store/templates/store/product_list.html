@@ -1,31 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Products</h3>
-    {% for product in product_obj %}
-        <div class="col">
-            <div class="card h-100">
-                <!-- Book Image -->
-                <center>
-                    <img src="{{ product.image.url }}" class="card-img-top w-50 h-auto" alt="{{ product.name }}">
-                </center>
-                
-                <div class="card-body">
+{% extends "store/base.html" %}
+{% block body %}
+    <div class="container my-5">
+        <h3 class="text-center mb-4">Products</h3>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for product in product_obj %}
+            <div class="col">
+                <div class="card h-100">
+                    <!-- Product Image -->
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                     
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">something: {{ product.image.url }}</p>
-                    
-                    <p class="card-text"> {{ product.price }}</p>
-                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">Image URL: {{ product.image.url }}</p>
+                        <p class="card-text">Price: {{ product.price }}</p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</body>
-</html>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Brand Name. All rights reserved.</p>
+        </div>
+    </footer>
+{% endblock %}
