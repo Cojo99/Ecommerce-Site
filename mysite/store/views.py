@@ -28,14 +28,14 @@ def product_list(request):
     if product_name != '' and product_name is not None:
         product_obj = product_obj.filter(name__icontains=product_name)
 
-    paginator = Paginator(product_obj, 6) # display 3 items
+    paginator = Paginator(product_obj, 6)
     page = request.GET.get('page') #get from the url
     product_obj = paginator.get_page(page) # page is from above line
 
     return render(request, 'store/product_list.html', {'product_obj': product_obj})
 
 
-
+["S", "M", "L","XL"]
 
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
