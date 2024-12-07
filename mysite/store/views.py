@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Product, CartItem
 from django.core.paginator import Paginator
 
+from rest_framework import viewsets
+from .serializers import ProductSerializer
 
 
 # Create your views here.
@@ -10,7 +12,13 @@ def home(request):
     return render(request, 'store/home.html') #, {'products': products}
 
 
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
+class AllViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 def product_list(request):
