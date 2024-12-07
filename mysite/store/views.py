@@ -16,9 +16,9 @@ def home(request):
 def product_list(request):
     product_obj = Product.objects.all()
 
-    # product_name = request.GET.get('product_name')
-    # if product_name != '' and product_name is not None:
-    #     product_obj = product_obj.filter(name__icontains=product_name)
+    product_name = request.GET.get('product_name')
+    if product_name != '' and product_name is not None:
+        product_obj = product_obj.filter(name__icontains=product_name)
 
     paginator = Paginator(product_obj, 6) # display 3 items
     page = request.GET.get('page') #get from the url
