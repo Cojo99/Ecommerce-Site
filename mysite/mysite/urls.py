@@ -25,7 +25,8 @@ from store.views import add_to_cart, checkout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('products/<str:category>/<str:gender>/', product_list, name='product_list'),
+    # path('products/<str:category>/<str:gender>/', product_list, name='product_list'),
+    path('products/', product_list, name='product_list'),
     path('product/<int:pk>/', product_detail, name='product_detail'),
     path('cart/', cart, name='cart'),
     path('add_to_cart/<int:pk>/', add_to_cart, name='add_to_cart'),
