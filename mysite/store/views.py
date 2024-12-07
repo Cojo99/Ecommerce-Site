@@ -28,7 +28,7 @@ def product_list(request):
     if product_name != '' and product_name is not None:
         product_obj = product_obj.filter(name__icontains=product_name)
 
-    paginator = Paginator(product_obj, 6)
+    paginator = Paginator(product_obj, 12)
     page = request.GET.get('page') #get from the url
     product_obj = paginator.get_page(page) # page is from above line
 
