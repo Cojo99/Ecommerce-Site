@@ -44,19 +44,26 @@ def product_detail(request, pk):
 def cart(request):
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
+        for item in cart_items:
+            item.subtotal = (item.quantity or 0) * (item.product.price or 0)
+        
+        total = sum(item.subtotal for item in cart_items)
     else:
-        session_id = request.session.session_key
+        session_id = request.session.session_key or request.session.create()
         cart_items = CartItem.objects.filter(session_id=session_id)
+        
         cart_items = [
             {
                 "product": item.product,
                 "quantity": item.quantity,
-                "total": item.product.price * item.quantity if item.product.price and item.quantity else 0
+                "total": (item.product.price or 0) * (item.quantity or 0),
             }
             for item in cart_items
         ]
-    total = sum(item.quantity * item.product.price for item in cart_items)
-    return render(request, 'store/cart.html', {'cart_items': cart_items, 'total': total})
+        
+        total = sum(item["subtotal"] for item in cart_items)
+    
+    return render(request, 'store/cart.html', {'cart_items': cart_items, 'total_price': total})
 
 def add_to_cart(request, pk):
     product = Product.objects.get(pk=pk)
@@ -64,14 +71,13 @@ def add_to_cart(request, pk):
     size = request.POST.get('size')
 
     if request.user.is_authenticated:
-        cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+        cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product, quantity=quantity, size=size)
     else:
-        # Use session for unauthenticated users
         session_id = request.session.session_key
         if not session_id:
             request.session.create()
             session_id = request.session.session_key
-        cart_item, created = CartItem.objects.get_or_create(session_id=session_id, product=product)
+        cart_item, created = CartItem.objects.get_or_create(session_id=session_id, product=product, quantity=quantity, size=size)
     
     if not created:
         cart_item.quantity += 1

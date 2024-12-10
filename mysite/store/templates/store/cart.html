@@ -20,16 +20,26 @@
             <tbody>
                 {% for item in cart_items %}
                 <tr>
-                    <td>{{ item.product.name }}</td>
                     <td>
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 80px; height: auto;">
+                        {% if item.product %}
+                            {{ item.product.name }}
+                        {% else %}
+                            {{ item.product.name }}
+                        {% endif %}
                     </td>
-                    <td>${{ item.product.price }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>${{ item.total|floatformat:2 }}</td>
                     <td>
-                        <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger btn-sm">Remove</a>
-                        <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-warning btn-sm">Decrease</a>
+                        <img 
+                        src="{{ item.product.image.url }}" 
+                        alt="{{ item.product.name }}" 
+                        class="img-thumbnail" 
+                        style="width: 80px; height: auto;">
+                    </td>
+                    <td>${{ item.product.price|floatformat:2 }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.subtotal|floatformat:2 }}</td>
+                    <td>
+                        <!-- Add buttons for actions like remove or update if needed -->
+                        <a href="#" class="btn btn-danger btn-sm">Remove</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -49,3 +59,4 @@
 </div>
 
 {% endblock %}
+
