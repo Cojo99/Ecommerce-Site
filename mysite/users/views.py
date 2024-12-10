@@ -33,7 +33,7 @@ def register_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('store/home.html')
 
 def profile_view(request):
-    return render(request, 'users/profile.html')
+    return render(request, 'store/home.html')
