@@ -20,9 +20,10 @@
                     <div class="mb-3">
                         <label for="size" class="form-label">Size</label>
                         
-                        <select name="size" id="size" class="form-select">
+                        <select name="size" id="size" class="form-select" required>
+                            <option value="" selected disabled>Select a size</option>
                             {% for size in product.sizes %}
-                            <option value="{{size}}" selected>{{ size }}</option>
+                                <option value="{{size}}">{{ size }}</option>
                             {% endfor %}
                         </select>
                     </div>
