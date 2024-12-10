@@ -1,4 +1,29 @@
 {% extends "store/base.html" %}
 {% block body %}
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-6">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+            </div>
+            
+            <!-- Product Details -->
+            <div class="col-md-6">
+                <h1 class="display-5">{{ product.name }}</h1>
+                <p class="lead">Category: {{ product.category }}</p>
+                <p class="lead">Gender: {{ product.gender }}</p>
+                <p class="lead">Price: ${{ product.price }}</p>
+                <p class="lead">Stock: {{ product.stock }} available</p>
+                
+                <a href="{% url 'product_list' %}" class="btn btn-outline-primary btn-lg">Back to Products</a>
+            </div>
+        </div>
+    </div>
 
+    <!-- Footer -->
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Brand Name. All rights reserved.</p>
+        </div>
+    </footer>
 {% endblock %}

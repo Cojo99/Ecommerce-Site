@@ -21,7 +21,7 @@
                         <p class="card-text">{{ product.gender }}</p>
                         <p class="card-text">Image URL: {{ product.image.url }}</p>
                         <p class="card-text">Price: {{ product.price }}</p>
-                        <a href="#" class="btn btn-outline-primary">View Product</a>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary">View Product</a>
                     </div>
                 </div>
             </div>
