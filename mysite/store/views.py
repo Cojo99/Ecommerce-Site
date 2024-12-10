@@ -42,6 +42,7 @@ def product_detail(request, pk):
     return render(request, 'store/product_detail.html', {'product': product})
 
 def cart(request):
+    
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
         for item in cart_items:
