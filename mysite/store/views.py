@@ -8,8 +8,8 @@ from .serializers import ProductSerializer
 
 # Create your views here.
 def home(request):
-    products = Product.objects.all()
-    return render(request, 'store/home.html') #, {'products': products}
+    product_obj = Product.objects.all()
+    return render(request, 'store/home.html', {'product_obj': product_obj}) #, {'products': products}
 
 
 class ProductViewSet(viewsets.ModelViewSet):
