@@ -1,4 +1,51 @@
 {% extends "store/base.html" %}
 {% block body %}
 
+<div class="container my-5">
+    <h3 class="text-center mb-4">Your Cart</h3>
+    
+    {% if cart_items %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail" style="width: 80px; height: auto;">
+                    </td>
+                    <td>${{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.total|floatformat:2 }}</td>
+                    <td>
+                        <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger btn-sm">Remove</a>
+                        <a href="{% url 'decrease_quantity' item.product.id %}" class="btn btn-warning btn-sm">Decrease</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="text-end my-4">
+        <h4>Total: ${{ total_price|floatformat:2 }}</h4>
+        <a href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center">
+        Your cart is empty. <a href="{% url 'product_list' %}">Start Shopping</a>.
+    </div>
+    {% endif %}
+</div>
+
 {% endblock %}

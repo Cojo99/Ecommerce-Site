@@ -14,7 +14,31 @@
                 <p class="lead">Gender: {{ product.gender }}</p>
                 <p class="lead">Price: ${{ product.price }}</p>
                 <p class="lead">Stock: {{ product.stock }} available</p>
-                
+                <!--<a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-primary btn-lg">Add to Cart</a>-->
+                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Size</label>
+                        
+                        <select name="size" id="size" class="form-select">
+                            {% for size in product.sizes %}
+                            <option value="{{size}}" selected>{{ size }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input 
+                            type="number" 
+                            name="quantity" 
+                            id="quantity" 
+                            class="form-control" 
+                            min="1" 
+                            value="1"
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary btn-lg">Add to Cart</button>
+                </form>
                 <a href="{% url 'product_list' %}" class="btn btn-outline-primary btn-lg">Back to Products</a>
             </div>
         </div>

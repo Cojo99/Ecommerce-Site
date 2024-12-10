@@ -47,7 +47,14 @@ def cart(request):
     else:
         session_id = request.session.session_key
         cart_items = CartItem.objects.filter(session_id=session_id)
-
+        cart_items = [
+            {
+                "product": item.product,
+                "quantity": item.quantity,
+                "total": item.product.price * item.quantity if item.product.price and item.quantity else 0
+            }
+            for item in cart_items
+        ]
     total = sum(item.quantity * item.product.price for item in cart_items)
     return render(request, 'store/cart.html', {'cart_items': cart_items, 'total': total})
 
@@ -57,10 +64,18 @@ def add_to_cart(request, pk):
     size = request.POST.get('size')
 
     if request.user.is_authenticated:
-        CartItem.objects.create(user=request.user, product=product, quantity=quantity, size=size)
+        cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
     else:
-        session_id = request.session.session_key or request.session.create()
-        CartItem.objects.create(session_id=session_id, product=product, quantity=quantity, size=size)
+        # Use session for unauthenticated users
+        session_id = request.session.session_key
+        if not session_id:
+            request.session.create()
+            session_id = request.session.session_key
+        cart_item, created = CartItem.objects.get_or_create(session_id=session_id, product=product)
+    
+    if not created:
+        cart_item.quantity += 1
+    cart_item.save()
 
     return redirect('cart')
 
