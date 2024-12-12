@@ -8,7 +8,6 @@ from rest_framework import viewsets
 from .serializers import ProductSerializer
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-print(f"Stripe Secret Key: {stripe.api_key}")
 
 # Create your views here.
 def home(request):
@@ -123,17 +122,15 @@ def checkout(request):
     for item in cart_items:
         line_items.append({
             'price_data': {
-                'currency': 'usd',  # Change to your currency
+                'currency': 'usd', 
                 'product_data': {
                     'name': item.product.name,
                     'description': f"Size: {item.size}" if item.size else "No size selected",
                 },
-                'unit_amount': int(item.product.price * 100),  # Convert dollars to cents
+                'unit_amount': int(item.product.price * 100), 
             },
             'quantity': item.quantity,
         })
-
-    print("Line items:", line_items)
 
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
