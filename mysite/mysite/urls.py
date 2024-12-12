@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 from store.views import home, product_list, product_detail, cart
-from store.views import add_to_cart, checkout
+from store.views import add_to_cart, checkout, remove_from_cart
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('product/<int:pk>/', product_detail, name='product_detail'),
     path('cart/', cart, name='cart'),
     path('add_to_cart/<int:pk>/', add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
     path('checkout/', checkout, name='checkout'),
     path('users/', include('users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

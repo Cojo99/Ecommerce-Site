@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, CartItem
 from django.core.paginator import Paginator
 
@@ -89,3 +89,15 @@ def add_to_cart(request, pk):
 def checkout(request):
     # Placeholder for Stripe integration
     return render(request, 'store/checkout.html')
+
+
+def remove_from_cart(request, item_id):
+    if request.user.is_authenticated:
+        cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    else:
+        session_id = request.session.session_key or request.session.create()
+        cart_item = get_object_or_404(CartItem, id=item_id, session_id=session_id)
+
+    cart_item.delete()
+
+    return redirect('cart')
