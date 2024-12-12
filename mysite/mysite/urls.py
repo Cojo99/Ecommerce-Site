@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from store.views import home, product_list, product_detail, cart
 from store.views import add_to_cart, checkout, remove_from_cart, success, cancel
+from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,4 +36,6 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('success/', success, name='success'),
     path('cancel/', cancel, name='cancel'),
+
+    path('register/', user_views.register, name='register')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
