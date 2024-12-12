@@ -149,4 +149,4 @@ def success(request):
     return render(request, 'store/success.html')
 
 def cancel(request):
-    return render(request, 'store/cart.html')
+    return render(request, 'store/cancel.html')

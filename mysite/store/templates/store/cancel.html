@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Checkout canceled</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <section>
-    <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
-  </section>
-</body>
-</html>
+{% extends "store/base.html" %}
+{% block body %}
+    <div class="container my-5">
+        <div class="text-center">
+            <h2>Order Cancelled</h2>
+            <p>Your order has not been processed.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+        </div>
+    </div>
+{% endblock %}
