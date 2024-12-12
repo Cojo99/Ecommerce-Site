@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, CartItem
 from django.core.paginator import Paginator
+from django.conf import settings
+import stripe
 
 from rest_framework import viewsets
 from .serializers import ProductSerializer
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
+print(f"Stripe Secret Key: {stripe.api_key}")
 
 # Create your views here.
 def home(request):
@@ -101,3 +105,48 @@ def remove_from_cart(request, item_id):
     cart_item.delete()
 
     return redirect('cart')
+
+
+# Checkout page
+def checkout(request):
+    if request.user.is_authenticated:
+        cart_items = CartItem.objects.filter(user=request.user)
+    else:
+        session_id = request.session.session_key or request.session.create()
+        cart_items = CartItem.objects.filter(session_id=session_id)
+
+    if not cart_items:
+        # Redirect to cart if no items exist
+        return redirect('cart')
+    
+    line_items = []
+    for item in cart_items:
+        line_items.append({
+            'price_data': {
+                'currency': 'usd',  # Change to your currency
+                'product_data': {
+                    'name': item.product.name,
+                    'description': f"Size: {item.size}" if item.size else "No size selected",
+                },
+                'unit_amount': int(item.product.price * 100),  # Convert dollars to cents
+            },
+            'quantity': item.quantity,
+        })
+
+    print("Line items:", line_items)
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url='http://127.0.0.1:8000/success',  # might need to replace with your own local address
+        cancel_url='http://127.0.0.1:8000/cancel',   # might need to replace with your own local address
+    )
+
+    return redirect(session.url)
+
+def success(request):
+    return render(request, 'store/success.html')
+
+def cancel(request):
+    return render(request, 'store/cancel.html')
