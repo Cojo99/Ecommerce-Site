@@ -7,6 +7,7 @@
     --button-color: #000000; /* Black buttons */
     --button-hover-color: #333333; /* Slightly lighter black for hover */
     --outline-color: #000000; /* Black outlines */
+    --navbar-color: #b3ffec;
 }
 
 /* General Styles */
@@ -21,7 +22,7 @@ body {
 /* Navbar */
 .navbar {
     background-color: var(--secondary-color);
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .navbar a {
