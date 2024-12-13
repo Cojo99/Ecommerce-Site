@@ -18,7 +18,7 @@ class Product(models.Model):
     ]
 
     name = models.CharField(max_length=200)
-    #image = models.ImageField(upload_to='product_images/')
+    image = models.CharField(max_length=500, default='https://img.freepik.com/free-vector/coming-soon-display-background-with-focus-light_1017-33741.jpg?t=st=1734035524~exp=1734039124~hmac=adff18d75a4afbfd4b3e44cb249bfcfc467ee624b4b8b4ba928c256de9f98767&w=826')
     sizes = models.JSONField()  # Example: ["S", "M", "L"]
     price = models.DecimalField(max_digits=10, decimal_places=2)
     gender = models.CharField(max_length=10, choices=Gender_choices)
