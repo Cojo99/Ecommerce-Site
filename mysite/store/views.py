@@ -39,8 +39,6 @@ def product_list(request):
     return render(request, 'store/product_list.html', {'product_obj': product_obj})
 
 
-["S", "M", "L","XL"]
-
 def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
     return render(request, 'store/product_detail.html', {'product': product})
@@ -146,6 +144,14 @@ def checkout(request):
     return redirect(session.url)
 
 def success(request):
+
+    if request.user.is_authenticated:
+        CartItem.objects.filter(user=request.user).delete()
+    else:
+        session_id = request.session.session_key
+        if session_id:
+            CartItem.objects.filter(session_id=session_id).delete()
+
     return render(request, 'store/success.html')
 
 def cancel(request):
