@@ -3,6 +3,7 @@ from .models import Product, CartItem
 from django.core.paginator import Paginator
 from django.conf import settings
 import stripe
+from django.contrib.auth.decorators import login_required
 
 from rest_framework import viewsets
 from .serializers import ProductSerializer
@@ -44,6 +45,7 @@ def product_detail(request, pk):
     product = Product.objects.get(pk=pk)
     return render(request, 'store/product_detail.html', {'product': product})
 
+@login_required
 def cart(request):
     
     if request.user.is_authenticated:
@@ -107,6 +109,7 @@ def remove_from_cart(request, item_id):
 
 
 # Checkout page
+
 def checkout(request):
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(user=request.user)
