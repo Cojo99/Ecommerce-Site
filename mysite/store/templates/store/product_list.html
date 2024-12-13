@@ -6,6 +6,12 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>
+    <div class="d-flex justify-content-center my-4">
+        <a href="?gender=Mens" class="btn btn-primary mx-2">Men's</a>
+        <a href="?gender=Womens" class="btn btn-primary mx-2">Women's</a>
+        <a href="?category=Shorts" class="btn btn-primary mx-2">Shorts</a>
+        <a href="?category=Shirts" class="btn btn-primary mx-2">Shirts</a>
+    </div>
     
     <div class="container my-5">
         <h3 class="text-center mb-4">Products</h3>
@@ -30,18 +36,19 @@
     <div class="d-flex justify-content-between align-items-center my-4">
         <div>
             {% if product_obj.has_previous %}
-                <a href="?page=1" class="btn btn-outline-primary btn-sm">First</a>
-                <a href="?page={{ product_obj.previous_page_number }}" class="btn btn-outline-primary btn-sm">Previous</a>
+                <a href="?page=1{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">First</a>
+                <a href="?page={{ product_obj.previous_page_number }}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Previous</a>
             {% endif %}
         </div>
         <p>Page: {{ product_obj.number }} of {{ product_obj.paginator.num_pages }}</p>
         <div>
             {% if product_obj.has_next %}
-                <a href="?page={{ product_obj.next_page_number }}" class="btn btn-outline-primary btn-sm">Next</a>
-                <a href="?page={{ product_obj.paginator.num_pages }}" class="btn btn-outline-primary btn-sm">Last</a>
+                <a href="?page={{ product_obj.next_page_number }}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Next</a>
+                <a href="?page={{ product_obj.paginator.num_pages }}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Last</a>
             {% endif %}
         </div>
     </div>
+    
 
     <!-- Footer -->
     <footer class="bg-light py-4">

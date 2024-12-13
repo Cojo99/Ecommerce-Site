@@ -156,3 +156,20 @@ def success(request):
 
 def cancel(request):
     return render(request, 'store/cancel.html')
+
+
+class MensView(viewsets.ModelViewSet):
+    queryset = Product.objects.filter(gender="Mens's")
+    serializer_class = ProductSerializer
+
+class WomensView(viewsets.ModelViewSet):
+    queryset = Product.objects.filter(gender="Women's")
+    serializer_class = ProductSerializer
+
+class ShortsView(viewsets.ModelViewSet):
+    queryset = Product.objects.filter(category='Shorts')
+    serializer_class = ProductSerializer
+
+class ShirtsView(viewsets.ModelViewSet):
+    queryset = Product.objects.filter(category='Shirts')
+    serializer_class = ProductSerializer

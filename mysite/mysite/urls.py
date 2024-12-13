@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from store.views import home, product_list, product_detail, cart
 from store.views import add_to_cart, checkout, remove_from_cart, success, cancel
+from store.views import MensView, WomensView, ShirtsView, ShortsView
 from users import views as user_views
 from django.contrib.auth import views as authentication_views
 
@@ -37,6 +38,11 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('success/', success, name='success'),
     path('cancel/', cancel, name='cancel'),
+
+    path('products/mens/', MensView.as_view({'get': 'list'}), name='mens_products'),
+    path('products/womens/', WomensView.as_view({'get': 'list'}), name='womens_products'),
+    path('products/shorts/', ShortsView.as_view({'get': 'list'}), name='shorts_products'),
+    path('products/shirts/', ShirtsView.as_view({'get': 'list'}), name='shirts_products'),
 
     path('register/', user_views.register, name='register'),
     path('login/', authentication_views.LoginView.as_view(template_name='users/login.html'), name='login'),
