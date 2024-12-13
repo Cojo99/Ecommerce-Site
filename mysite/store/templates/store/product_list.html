@@ -3,14 +3,14 @@
     <div class="justify-content-center d-flex mt-4">
         <form action="" method="GET" class="d-flex">
             <input type="search" name="product_name" class="form-control me-2" placeholder="Search">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">Search or show all</button>
         </form>
     </div>
     <div class="d-flex justify-content-center my-4">
-        <a href="?gender=Mens" class="btn btn-primary mx-2">Men's</a>
-        <a href="?gender=Womens" class="btn btn-primary mx-2">Women's</a>
-        <a href="?category=Shorts" class="btn btn-primary mx-2">Shorts</a>
-        <a href="?category=Shirts" class="btn btn-primary mx-2">Shirts</a>
+        <a href="?gender=men" class="btn btn-primary mx-2">Men's</a>
+        <a href="?gender=women" class="btn btn-primary mx-2">Women's</a>
+        <a href="?category=shorts" class="btn btn-primary mx-2">Shorts</a>
+        <a href="?category=shirts" class="btn btn-primary mx-2">Shirts</a>
     </div>
     
     <div class="container my-5">
@@ -36,18 +36,19 @@
     <div class="d-flex justify-content-between align-items-center my-4">
         <div>
             {% if product_obj.has_previous %}
-                <a href="?page=1{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">First</a>
-                <a href="?page={{ product_obj.previous_page_number }}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Previous</a>
+                <a href="?page=1{% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">First</a>
+                <a href="?page={{ product_obj.previous_page_number }}{% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Previous</a>
             {% endif %}
         </div>
         <p>Page: {{ product_obj.number }} of {{ product_obj.paginator.num_pages }}</p>
         <div>
             {% if product_obj.has_next %}
-                <a href="?page={{ product_obj.next_page_number }}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Next</a>
-                <a href="?page={{ product_obj.paginator.num_pages }}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Last</a>
+                <a href="?page={{ product_obj.next_page_number }}{% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Next</a>
+                <a href="?page={{ product_obj.paginator.num_pages }}{% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}{% if request.GET.gender %}&gender={{ request.GET.gender }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" class="btn btn-outline-primary btn-sm">Last</a>
             {% endif %}
         </div>
     </div>
+    
     
 
     <!-- Footer -->

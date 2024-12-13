@@ -25,18 +25,45 @@ class AllViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
 
 
+
 def product_list(request):
+    # Get all products initially
     product_obj = Product.objects.all()
 
+    # Handle search by product name
     product_name = request.GET.get('product_name')
-    if product_name != '' and product_name is not None:
+    if product_name:
         product_obj = product_obj.filter(name__icontains=product_name)
 
-    paginator = Paginator(product_obj, 12)
-    page = request.GET.get('page') #get from the url
-    product_obj = paginator.get_page(page) # page is from above line
+    # Handle filter by gender
+    gender = request.GET.get('gender')
+    if gender:
+        product_obj = product_obj.filter(gender=gender)
+
+    # Handle filter by category
+    category = request.GET.get('category')
+    if category:
+        product_obj = product_obj.filter(category=category)
+
+    # Pagination setup
+    paginator = Paginator(product_obj, 12)  # 12 products per page
+    page = request.GET.get('page')
+    product_obj = paginator.get_page(page)
 
     return render(request, 'store/product_list.html', {'product_obj': product_obj})
+
+
+    # product_obj = Product.objects.all()
+
+    # product_name = request.GET.get('product_name')
+    # if product_name != '' and product_name is not None:
+    #     product_obj = product_obj.filter(name__icontains=product_name)
+
+    # paginator = Paginator(product_obj, 12)
+    # page = request.GET.get('page') #get from the url
+    # product_obj = paginator.get_page(page) # page is from above line
+
+    # return render(request, 'store/product_list.html', {'product_obj': product_obj})
 
 
 def product_detail(request, pk):
