@@ -1,13 +1,22 @@
 {% extends "store/base.html" %}
 {% block body %}
 
-    <form method='POST'>
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="container d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
+        <div class="card shadow" style="width: 24rem; border-radius: 10px;">
+            <div class="card-body">
+                <h2 class="text-center" style="color: #007bff;">Login</h2>
+                <form method="POST" class="mt-4">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                <p class="text-center mt-3">
+                    Don't have an account? <a href="{% url 'register' %}" style="color: #007bff;">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
 
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
-    
 {% endblock %}
+
 
